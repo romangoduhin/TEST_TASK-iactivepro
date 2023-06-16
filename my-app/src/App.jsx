@@ -5,19 +5,27 @@ import {MessageList} from "@components";
 import {Loader} from "@templates";
 
 function App() {
-  const [messages, setMessages] = useState(null);
+  const [messages, setMessages] = useState([]);
+  const [lastMessageId, setLastMessageId] = useState(0);
 
   async function fetchMessages() {
-    const messages = await api.getMessages();
+    const messages = await api.getMessages(lastMessageId);
 
-    setMessages(messages)
+    if (messages) {
+      const lastMessage = messages.at(-1);
+
+      setLastMessageId(lastMessage.id);
+      setMessages((prevMessages) => [...prevMessages, ...messages]);
+    }
   }
 
   useEffect(() => {
-    fetchMessages()
-  }, []);
+    const intervalId = setInterval(fetchMessages, 5000);
 
-  if (!messages) return <Loader/>
+    return () => clearInterval(intervalId);
+  }, [lastMessageId]);
+
+  if (!messages.length) return <Loader/>
 
   return (
     <div className={styles.app}>

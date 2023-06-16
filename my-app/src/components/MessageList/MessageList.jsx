@@ -1,6 +1,7 @@
 import React from "react";
 import {List} from "@templates";
 import {Message} from "@components";
+import styles from "./MessageList.module.scss";
 
 export function MessageList({messages}) {
   function renderItem(item) {
@@ -8,6 +9,6 @@ export function MessageList({messages}) {
   }
 
   return (
-    <List items={messages} renderItem={renderItem}/>
+    <List className={styles.messageList} items={messages} renderItem={renderItem}/>
   );
 }
