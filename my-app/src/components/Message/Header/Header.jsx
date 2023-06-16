@@ -2,8 +2,28 @@ import React from "react";
 import styles from "./Header.module.scss";
 import defaultAvatar from "@images/defaultAvatar.png";
 import {Button, Icon} from "@templates";
+import arrowIcon from "@icons/arrowIcon.svg";
+import hideIcon from "@icons/hideIcon.svg";
+import settingsIcon from "@icons/settingsIcon.svg";
+import starIcon from "@icons/starIcon.svg";
+import favoriteIcon from "@icons/favoriteIcon.svg";
 
-export function Header({buttons, icons, avatarUrl = defaultAvatar, author, channel}) {
+
+export function Header({isFavorite, handleToggleFavorite, avatarUrl = defaultAvatar, author, channel}) {
+  const buttons = [
+    {id: 0, text: "Левый"},
+    {id: 1, text: "Центр"},
+    {id: 2, text: "Правый"},
+  ]
+
+  const icons = [
+    {id: 0, url: arrowIcon},
+    {id: 1, url: hideIcon},
+    {id: 2, url: settingsIcon},
+    {id: 3, url: isFavorite ? favoriteIcon : starIcon, onClick: handleToggleFavorite},
+  ]
+
+
   return (
     <div className={styles.header}>
       <div className={styles.info}>

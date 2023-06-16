@@ -3,9 +3,15 @@ import {List} from "@templates";
 import {Message} from "@components";
 import styles from "./MessageList.module.scss";
 
-export function MessageList({messages}) {
+export function MessageList({favorites, toggleFavorite, messages}) {
   function renderItem(item) {
-    return <Message data={item}/>
+    let isFavorite = false;
+
+    if (favorites.includes(item.id)) {
+      isFavorite = true;
+    }
+
+    return <Message isFavorite={isFavorite} toggleFavorite={toggleFavorite} data={item}/>
   }
 
   return (

@@ -4,10 +4,14 @@ import {api} from "@api";
 import {MessageList, OrderToggle} from "@components";
 import {Loader} from "@templates";
 import {isArrayEmpty} from "@helpers";
+import {useFavorites} from "@hooks";
 
 function App() {
   const [messages, setMessages] = useState([]);
   const [lastMessageId, setLastMessageId] = useState(0);
+
+  const [favorites, toggleFavorite] = useFavorites([]);
+
   const [isReverseOrder, setIsReverseOrder] = useState(false);
 
   const handleToggleOrder = () => {
@@ -50,7 +54,7 @@ function App() {
   return (
     <div className={styles.app}>
       <OrderToggle isReverseOrder={isReverseOrder} onToggle={handleToggleOrder}/>
-      <MessageList messages={messages}/>
+      <MessageList favorites={favorites} toggleFavorite={toggleFavorite} messages={messages}/>
     </div>
   )
 }
