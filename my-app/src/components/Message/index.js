@@ -1,1 +1,1 @@
-export * from "./Message.jsx"
+export * from "./Message.jsx";

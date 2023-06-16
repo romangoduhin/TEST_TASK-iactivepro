@@ -2,14 +2,17 @@ import React from "react";
 import styles from "./Main.module.scss";
 import {formatDate} from "@helpers";
 
+const VIDEO_TYPE = "video";
+const IMAGE_TYPE = "image";
+
 export function Main({date, content, attachments}) {
   const formattedDate = formatDate(date)
 
   function renderMedia(type, url, key) {
-    if (type === "video") {
+    if (type === VIDEO_TYPE) {
       return <video key={key} src={url} controls/>
-    } else if (type === "image") {
-      return <img key={key} src={url} alt="Image"/>;
+    } else if (type === IMAGE_TYPE) {
+      return <img key={key} src={url} alt="image"/>;
     } else {
       return null;
     }

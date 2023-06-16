@@ -1,1 +1,1 @@
-export * from "./OrderToggle.jsx"
+export * from "./OrderToggle.jsx";

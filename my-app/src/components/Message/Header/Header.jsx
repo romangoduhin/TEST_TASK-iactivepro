@@ -1,7 +1,7 @@
 import React from "react";
 import styles from "./Header.module.scss";
-import defaultAvatar from "@images/defaultAvatar.png";
 import {Button, Icon} from "@templates";
+import defaultAvatar from "@images/defaultAvatar.png";
 import arrowIcon from "@icons/arrowIcon.svg";
 import hideIcon from "@icons/hideIcon.svg";
 import settingsIcon from "@icons/settingsIcon.svg";
@@ -22,8 +22,7 @@ export function Header({isFavorite, handleToggleFavorite, avatarUrl = defaultAva
     {id: 2, url: settingsIcon},
     {id: 3, url: isFavorite ? favoriteIcon : starIcon, onClick: handleToggleFavorite},
   ]
-
-
+  
   return (
     <div className={styles.header}>
       <div className={styles.info}>
