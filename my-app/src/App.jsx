@@ -2,6 +2,7 @@ import {useEffect, useState} from "react";
 import styles from "./App.module.scss";
 import {api} from "@api";
 import {MessageList} from "@components";
+import {Loader} from "@templates";
 
 function App() {
   const [messages, setMessages] = useState(null);
@@ -16,7 +17,7 @@ function App() {
     fetchMessages()
   }, []);
 
-  if(!messages) return <div>Loading</div>
+  if (!messages) return <Loader/>
 
   return (
     <div className={styles.app}>
