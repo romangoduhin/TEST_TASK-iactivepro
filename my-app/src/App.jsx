@@ -3,6 +3,7 @@ import styles from "./App.module.scss";
 import {api} from "@api";
 import {MessageList} from "@components";
 import {Loader} from "@templates";
+import {isArrayEmpty} from "@helpers";
 
 function App() {
   const [messages, setMessages] = useState([]);
@@ -20,12 +21,22 @@ function App() {
   }
 
   useEffect(() => {
-    const intervalId = setInterval(fetchMessages, 5000);
+    if (lastMessageId) {
+      const intervalId = setInterval(fetchMessages, 5000);
 
-    return () => clearInterval(intervalId);
+      return () => clearInterval(intervalId);
+    }
   }, [lastMessageId]);
 
-  if (!messages.length) return <Loader/>
+
+  useEffect(() => {
+    if (isArrayEmpty(messages)) {
+      fetchMessages()
+    }
+  }, []);
+
+
+  if (isArrayEmpty(messages)) return <Loader/>
 
   return (
     <div className={styles.app}>
