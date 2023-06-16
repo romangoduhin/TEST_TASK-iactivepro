@@ -9,6 +9,8 @@ export function MessageList({messages}) {
   }
 
   return (
-    <List className={styles.messageList} items={messages} renderItem={renderItem}/>
+    <div className={styles.messageList}>
+      <List items={messages} renderItem={renderItem}/>
+    </div>
   );
 }

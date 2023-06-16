@@ -1,0 +1,20 @@
+@import "../../assets/variables/variables";
+
+.toggle {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+
+  .button {
+    width: 100px;
+    border-color: $gray;
+    color: $gray;
+  }
+
+  .button.active {
+    border-color: $blue;
+    color: $blue;
+  }
+}
