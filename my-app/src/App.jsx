@@ -1,54 +1,14 @@
-import React, {useEffect, useState} from "react";
+import React from "react";
 import styles from "./App.module.scss";
-import {api} from "@api";
 import {MessageList, OrderToggle} from "@components";
 import {Loader} from "@templates";
 import {isArrayEmpty} from "@helpers";
-import {useFavorites} from "@hooks";
+import {useFavorites, useMessages} from "@hooks";
 
 function App() {
-  const [messages, setMessages] = useState([]);
-  const [lastMessageId, setLastMessageId] = useState(0);
-
   const [favorites, toggleFavorite] = useFavorites([]);
-
-  const [isReverseOrder, setIsReverseOrder] = useState(false);
-
-  const handleToggleOrder = () => {
-    setIsReverseOrder(prevOrder => !prevOrder);
-  };
-
-  async function fetchMessages() {
-    const messages = await api.getMessages(lastMessageId);
-
-    if (messages) {
-      const lastMessage = messages.at(-1);
-
-      setLastMessageId(lastMessage.id);
-
-      if (isReverseOrder) {
-        setMessages((prevMessages) => [...messages, ...prevMessages,]);
-      } else {
-        setMessages((prevMessages) => [...prevMessages, ...messages,]);
-      }
-    }
-  }
-
-  useEffect(() => {
-    if (lastMessageId) {
-      const intervalId = setInterval(fetchMessages, 5000);
-
-      return () => clearInterval(intervalId);
-    }
-  }, [lastMessageId]);
-
-
-  useEffect(() => {
-    if (isArrayEmpty(messages)) {
-      fetchMessages()
-    }
-  }, []);
-
+  const [messages, isReverseOrder, handleToggleOrder] = useMessages([]);
+  
   if (isArrayEmpty(messages)) return <Loader/>
 
   return (
