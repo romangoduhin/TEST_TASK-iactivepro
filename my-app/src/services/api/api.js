@@ -18,4 +18,15 @@ export const api = {
 
     return response.data.Messages;
   },
+  getOldMessages: async () => {
+    const bodyFormData = new FormData();
+    bodyFormData.append("actionName", "MessagesLoad")
+    bodyFormData.append("oldMessages", true)
+
+    const response = await instance.post("", bodyFormData, {
+      headers: {"Content-Type": "multipart/form-data"},
+    })
+
+    return response.data.Messages;
+  },
 }

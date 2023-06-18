@@ -16,5 +16,6 @@
   .button.active {
     border-color: $blue;
     color: $blue;
+    pointer-events: none;
   }
 }

@@ -1,4 +1,4 @@
-import {useEffect, useState} from "react";
+import {useEffect, useMemo, useState} from "react";
 import {api} from "@api";
 import {isArrayEmpty} from "@helpers";
 
@@ -9,7 +9,11 @@ export function useMessages(initialMessages = []) {
 
   const [lastMessageId, setLastMessageId] = useState(0);
 
-  const sortedMessages = isReverseOrder ? [...messages].reverse() : messages;
+  const updatedMessages = useMemo(() => (
+      messages.map((message, index) => index === 0 ? {...message, isOldest: true} : message)),
+    [messages]);
+
+  const sortedMessages = isReverseOrder ? [...updatedMessages].reverse() : updatedMessages
 
   function handleToggleOrder() {
     setIsReverseOrder(prevOrder => !prevOrder);
@@ -24,6 +28,14 @@ export function useMessages(initialMessages = []) {
       setLastMessageId(lastMessage.id);
 
       setMessages((prevMessages) => [...prevMessages, ...newMessages]);
+    }
+  }
+
+  async function fetchOldMessages() {
+    const oldMessages = await api.getOldMessages();
+
+    if (oldMessages) {
+      setMessages((prevMessages) => [...oldMessages, ...prevMessages]);
     }
   }
 
@@ -42,5 +54,5 @@ export function useMessages(initialMessages = []) {
     }
   }, []);
 
-  return [sortedMessages, isReverseOrder, handleToggleOrder];
+  return [sortedMessages, isReverseOrder, handleToggleOrder, fetchOldMessages];
 }
