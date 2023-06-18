@@ -9,23 +9,21 @@ export function useMessages(initialMessages = []) {
 
   const [lastMessageId, setLastMessageId] = useState(0);
 
+  const sortedMessages = isReverseOrder ? [...messages].reverse() : messages;
+
   function handleToggleOrder() {
     setIsReverseOrder(prevOrder => !prevOrder);
   }
 
   async function fetchMessages() {
-    const messages = await api.getMessages(lastMessageId);
+    const newMessages = await api.getMessages(lastMessageId);
 
-    if (messages) {
-      const lastMessage = messages.at(-1);
+    if (newMessages) {
+      const lastMessage = newMessages.at(-1);
 
       setLastMessageId(lastMessage.id);
 
-      if (isReverseOrder) {
-        setMessages((prevMessages) => [...messages, ...prevMessages,]);
-      } else {
-        setMessages((prevMessages) => [...prevMessages, ...messages,]);
-      }
+      setMessages((prevMessages) => [...prevMessages, ...newMessages]);
     }
   }
 
@@ -44,5 +42,5 @@ export function useMessages(initialMessages = []) {
     }
   }, []);
 
-  return [messages, isReverseOrder, handleToggleOrder];
+  return [sortedMessages, isReverseOrder, handleToggleOrder];
 }
