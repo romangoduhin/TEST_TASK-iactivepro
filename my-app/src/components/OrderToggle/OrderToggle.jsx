@@ -7,12 +7,12 @@ export function OrderToggle({isReverseOrder, onToggle}) {
     <div className={styles.toggle}>
       <Button className={isReverseOrder ? `${styles.button} ${styles.active}` : styles.button}
               onClick={onToggle}>
-        Reverse order
+        New -> Old
       </Button>
 
       <Button className={isReverseOrder ? styles.button : `${styles.button} ${styles.active}`}
               onClick={onToggle}>
-        Default order
+        Old -> New
       </Button>
     </div>
   );

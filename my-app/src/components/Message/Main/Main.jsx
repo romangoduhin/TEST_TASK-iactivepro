@@ -1,6 +1,6 @@
 import React from "react";
 import styles from "./Main.module.scss";
-import {formatDate} from "@helpers";
+import {formatDate, isArrayEmpty} from "@helpers";
 
 const VIDEO_TYPE = "video";
 const IMAGE_TYPE = "image";
@@ -23,9 +23,12 @@ export function Main({date, content, attachments}) {
       <div className={styles.sidebar}>
         <p className={styles.time}>{formattedDate}</p>
       </div>
+
       <div className={styles.content}>
         <p className={styles.text}>{content}</p>
-        <p className={styles.nextText}>Далее</p>
+
+        {!isArrayEmpty(attachments) && <p className={styles.nextText}>Далее</p>}
+
         <div className={styles.attachments}>
           {attachments.map((attachment, index) => {
             const {type, url} = attachment;

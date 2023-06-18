@@ -9,11 +9,20 @@ import starIcon from "@icons/starIcon.svg";
 import favoriteIcon from "@icons/favoriteIcon.svg";
 
 
-export function Header({isFavorite, handleToggleFavorite, avatarUrl = defaultAvatar, author, channel}) {
+export function Header({
+                         isOldest,
+                         isFavorite,
+                         handleToggleFavorite,
+                         fetchOldMessages,
+                         avatarUrl = defaultAvatar,
+                         author,
+                         channel
+                       }) {
   const buttons = [
     {id: 0, text: "Левый"},
     {id: 1, text: "Центр"},
     {id: 2, text: "Правый"},
+
   ]
 
   const icons = [
@@ -22,7 +31,11 @@ export function Header({isFavorite, handleToggleFavorite, avatarUrl = defaultAva
     {id: 2, url: settingsIcon},
     {id: 3, url: isFavorite ? favoriteIcon : starIcon, onClick: handleToggleFavorite},
   ]
-  
+
+  if (isOldest) {
+    buttons.unshift({id: 3, text: "Загрузить предыдущие", onClick: fetchOldMessages},)
+  }
+
   return (
     <div className={styles.header}>
       <div className={styles.info}>

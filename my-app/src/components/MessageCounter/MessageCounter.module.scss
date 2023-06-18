@@ -1,0 +1,9 @@
+@import "@variables";
+
+.counter {
+  color: $gray;
+
+  .number {
+    color: $blue;
+  }
+}

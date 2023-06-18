@@ -1,8 +1,10 @@
+@import "https://fonts.fontstorage.com/import/lato.css";
+
 * {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
-  font-family: "Lato";
+  font-family: "Lato", serif;
 }
 
 .app {
@@ -11,5 +13,6 @@
   min-height: 100vh;
   display: flex;
   flex-direction: column;
+  gap: 10px;
   align-items: center
 }
